@@ -21,7 +21,7 @@ const Header = () => {
       <header className="bg-primary-color w-full">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <div className="flex justify-start gap-6 md:flex-0">
-            <a href="#">
+            <a href="/">
               <img className="h-6 w-auto block" src={logo} alt="" />
             </a>
             <ul className="flex gap-6 text-white text-center font-bold">
@@ -56,8 +56,6 @@ const Header = () => {
           </div>
         </nav>
       </header>
-      <Outlet />
-      <Footer />
     </>
   );
 };

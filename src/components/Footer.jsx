@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="w-full bg-primary-color">
       <nav className="mt-10 mx-auto max-w-7xl flex items-center justify-center gap-20 px-10 pt-10 py-20 text-white">
         <div>
-          <a href="#">
+          <a href="/">
             <img className="h-[120px] aspect-auto block" src={logo} alt="" />
           </a>
         </div>

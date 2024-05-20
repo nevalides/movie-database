@@ -6,18 +6,19 @@ import FindList from "./pages/FindList";
 import Detail from "./pages/Detail";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DbContext } from "./store/db-context";
+import Layout from "./layout/Layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Header />,
+    element: <Layout />,
     children: [
       {
         path: "",
         element: <MainBody />,
       },
       {
-        path: ":media",
+        path: ":mediaType",
         element: <FindList />,
         children: [
           {

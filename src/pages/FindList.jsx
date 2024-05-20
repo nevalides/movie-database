@@ -6,14 +6,14 @@ import ListCard from "../components/ListCard";
 import { useParams, useSearchParams } from "react-router-dom";
 
 const FindList = () => {
-  const { media } = useParams();
+  const { mediaType } = useParams();
   const [searchQuery, setSearchQuery] = useSearchParams();
   searchQuery.get("query");
   const [titlePage, setTitlePage] = useState("");
 
   const { data, error, status, fetchData } = useFetch(
     `/movie/popular`,
-    {},
+    { page: 1 },
     useCallback(
       (data) => ({
         data: data?.results,
@@ -26,15 +26,17 @@ const FindList = () => {
     fetchData();
   }, []);
 
-  if (media === "movie") {
-    setTitlePage("Find Movie");
-  } else if (media === "tv") {
-    setTitlePage("Find TV Shows");
-  } else if (media === "people") {
-    setTitlePage("Find People");
-  } else {
-    setTitlePage(`Find: ${query}`);
-  }
+  useEffect(() => {
+    if (mediaType === "movie") {
+      setTitlePage("Find Movie");
+    } else if (mediaType === "tv") {
+      setTitlePage("Find TV Shows");
+    } else if (mediaType === "people") {
+      setTitlePage("Find People");
+    } else {
+      setTitlePage(`Find: ${query}`);
+    }
+  }, [mediaType]);
 
   return (
     <main className="mx-auto flex flex-col max-w-7xl items-center justify-center">
