@@ -27,7 +27,7 @@ main {
   background-color: white;
 }
 
-.selector h3 a {
+.selector h3 p {
   transition: -webkit-text-fill-color 0.5s;
   color: rgba(#032541, 1);
 }
@@ -37,7 +37,7 @@ main {
 }
 
 .button-selected,
-.selected h3 a {
+.selected h3 p {
   background: linear-gradient(to right, #c0fecf 0, #1ed5a9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -26,20 +26,20 @@ const Header = () => {
             </a>
             <ul className="flex gap-6 text-white text-center font-bold">
               <button
-                className="cursor-pointer"
+                className="hover: cursor-pointer"
                 onClick={() => handleClick("movie")}
               >
                 Movies
               </button>
               <button
-                className="cursor-pointer"
+                className="hover: cursor-pointer"
                 onClick={() => handleClick("tv")}
               >
                 TV Shows
               </button>
               <button
-                className="cursor-pointer"
-                onClick={() => handleClick("people")}
+                className="hover: cursor-pointer"
+                onClick={() => handleClick("person")}
               >
                 People
               </button>

@@ -1,12 +1,13 @@
 import { Children, useState } from "react";
 import Header from "./components/Header";
-import MainBody from "./pages/MainBody";
+import MainBody from "./pages/Homepage/MainBody";
 import Footer from "./components/Footer";
 import FindList from "./pages/FindList";
 import Detail from "./pages/Detail";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DbContext } from "./store/db-context";
 import Layout from "./layout/Layout";
+import SearchContextProvider from "./store/search-context";
 
 const router = createBrowserRouter([
   {
@@ -14,13 +15,16 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "",
+        index: true,
         element: <MainBody />,
       },
       {
         path: ":mediaType",
-        element: <FindList />,
         children: [
+          {
+            index: true,
+            element: <FindList />,
+          },
           {
             path: ":id",
             element: <Detail />,
@@ -35,7 +39,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <SearchContextProvider>
+        <RouterProvider router={router} />
+      </SearchContextProvider>
       {/* <Header /> */}
       {/* <MainBody /> */}
       {/* <FindList /> */}

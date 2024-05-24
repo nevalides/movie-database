@@ -11,10 +11,13 @@ import {
 } from "react-icons/io";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
 import PeopleCastCard from "../components/PeopleCastCard";
+import { useParams } from "react-router-dom";
+import { formatterCurrency } from "../helper/formatter";
 
 const Detail = () => {
+  const { mediaType, id } = useParams();
   const { data, error, status, fetchData } = useFetch(
-    `/movie/940721`,
+    `/${mediaType}/${id}`,
     {},
     useCallback(
       (data) => ({
@@ -30,7 +33,7 @@ const Detail = () => {
     status: statusPeople,
     fetchData: fetchDataPeople,
   } = useFetch(
-    `/movie/940721/credits`,
+    `/${mediaType}/${id}/credits`,
     {},
     useCallback(
       (data) => ({
@@ -46,16 +49,22 @@ const Detail = () => {
   useEffect(() => {
     fetchData();
     fetchDataPeople();
-  }, []);
+  }, [mediaType, id]);
 
   console.log(data);
   console.log(dataPeople);
 
   let backdropPath;
+  let dateArray;
+  // let year;
+  // let month;
+  // let day;
   let runtimeHours;
   let runtimeMinutes;
 
   if (status === "resolved") {
+    const date = data.release_date ?? data.first_air_date;
+    dateArray = date.split("-");
     runtimeHours = Math.floor(data.runtime / 60);
     runtimeMinutes = data.runtime - runtimeHours * 60;
   } else {
@@ -98,7 +107,7 @@ const Detail = () => {
                           {/* <span className="inline-flex whitespace-nowrap items-center px-1 pt-[0.06rem] pb-[0.15rem] border border-color-certification-rated text-color-certification-rated rounded-sm mr-[7px]"></span> */}
                           {data.title && (
                             <span className="text-gray-400">
-                              {data.release_date}
+                              {`${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`}
                             </span>
                           )}
                           {data.title && (
@@ -158,7 +167,7 @@ const Detail = () => {
           </section>
           <section id="other-detail" className="w-full max-w-7xl mb-0">
             <div className="px-10 py-[30px] flex items-start gap-5">
-              <div className="w-[calc(100vw - 80px - 268px)] max-w-5xl flex flex-wrap">
+              <div className="w-full max-w-[920px] flex flex-wrap">
                 <section className="w-full pb-[30px]">
                   <h3 className="font-semibold text-2xl mb-5">
                     Top Billed Cast
@@ -176,7 +185,10 @@ const Detail = () => {
                             );
                           } else if (index === 8) {
                             return (
-                              <div className="w-[150px] min-w-[150px] flex items-center justify-center gap-1">
+                              <div
+                                className="w-[150px] min-w-[150px] h-72 flex items-center justify-center gap-1"
+                                key={index}
+                              >
                                 <p className="inline-block text-lg font-semibold">
                                   View more
                                 </p>
@@ -196,7 +208,7 @@ const Detail = () => {
                     <strong className="block font-semibold">
                       Original Title
                     </strong>
-                    {data.original_title}
+                    {data.original_title ?? data.original_name}
                   </p>
                   <p className="w-full whitespace-normal text-base mb-5">
                     <strong className="block font-semibold">Status</strong>
@@ -209,12 +221,16 @@ const Detail = () => {
                     {data.original_language}
                   </p>
                   <p className="w-full whitespace-normal text-base mb-5">
-                    <strong className="block font-semibold">Budget</strong>${" "}
-                    {data.budget}
+                    <strong className="block font-semibold">Budget</strong>
+                    {data.budget > 0
+                      ? formatterCurrency.format(data.budget)
+                      : "-"}
                   </p>
                   <p className="w-full whitespace-normal text-base mb-5">
-                    <strong className="block font-semibold">Revenue</strong>${" "}
-                    {data.revenue}
+                    <strong className="block font-semibold">Revenue</strong>
+                    {data.revenue > 0
+                      ? formatterCurrency.format(data.revenue)
+                      : "-"}
                   </p>
                 </section>
               </div>

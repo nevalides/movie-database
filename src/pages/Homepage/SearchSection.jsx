@@ -1,6 +1,9 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useContext } from "react";
+import { SearchContext } from "../../store/search-context";
+import { useNavigate } from "react-router-dom";
 
-const SearchSection = forwardRef(({ handleSearch }, ref) => {
+const SearchSection = ({ ref }) => {
+  const { changeQuery } = useContext(SearchContext);
   return (
     <section className="h-[calc(100vh/2.5)] min-h-[300px] max-h-[360px] bg-main-greeting bg-cover bg-no-repeat text-white">
       <div className="h-full flex content-center items-center justify-center flex-wrap">
@@ -19,10 +22,11 @@ const SearchSection = forwardRef(({ handleSearch }, ref) => {
                   type="text"
                   placeholder="Search for a movie, tv show, person....."
                   className="ml-6 grow text-black bg-transparent focus:outline-none"
+                  onChange={() => changeQuery(e)}
                 />
                 <button
                   className="px-6 py-2.5 font-bold rounded-[30px] bg-gradient-to-r from-tertiary-color to-secondary-color"
-                  onClick={handleSearch}
+                  onClick={() => useNavigate("/search")}
                 >
                   Search
                 </button>
@@ -33,6 +37,6 @@ const SearchSection = forwardRef(({ handleSearch }, ref) => {
       </div>
     </section>
   );
-});
+};
 
 export default SearchSection;
