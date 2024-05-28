@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACC_LANG, BASE_URL } from "../config";
+import { ACC_LANG, BASE_URL } from "../config/config";
 
 const instance = axios.create();
 

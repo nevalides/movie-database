@@ -16,6 +16,18 @@ export const dateFormatter = (date) => {
   return `${day}/${month}/${dateObj.getFullYear()}`;
 };
 
+export const genderConverter = (genderId) => {
+  if (genderId === 0) {
+    return "-";
+  } else if (genderId === 1) {
+    return "Female";
+  } else if (genderId === 2) {
+    return "Male";
+  } else if (genderId === 3) {
+    return "Non-binary";
+  }
+};
+
 // export function convertMarkupToMarkdown(htmlString) {
 //   const markdownLines = [];
 

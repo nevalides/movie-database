@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from "react";
 import service from "../service/index";
-import { ACC_LANG, API_KEY } from "../config";
+import { ACC_LANG, API_KEY } from "../config/config";
 
 const initialState = {
   data: null,

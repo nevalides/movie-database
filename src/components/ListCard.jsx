@@ -1,9 +1,9 @@
 import React from "react";
 import tempPic from "../assets/image_error_poster.png";
-import { BASE_IMG_URL } from "../config";
+import { BASE_IMG_URL } from "../config/config";
 import { useNavigate } from "react-router-dom";
 
-const ListCard = ({ data }) => {
+const ListCard = ({ data, noDate }) => {
   const navigate = useNavigate();
 
   return (
@@ -26,7 +26,7 @@ const ListCard = ({ data }) => {
         >
           {data.title ?? data.name}
         </h2>
-        <p>{data.release_date ?? data.first_air_date}</p>
+        {!noDate && <p>{data.release_date ?? data.first_air_date}</p>}
       </div>
     </div>
   );

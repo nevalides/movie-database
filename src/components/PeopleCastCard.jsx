@@ -1,5 +1,5 @@
 import React from "react";
-import { BASE_IMG_URL } from "../config";
+import { BASE_IMG_URL } from "../config/config";
 import tempPic from "../assets/image_error_poster.png";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const PeopleCastCard = ({ data }) => {
   return (
     <div
       className="w-[150px] min-w-[150px] shadow rounded-lg"
-      onClick={() => navigate("/")}
+      onClick={() => navigate(`${data.id}`)}
     >
       <div>
         <img

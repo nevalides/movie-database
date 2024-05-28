@@ -3,7 +3,7 @@ import Markdown from "react-markdown";
 import { dateFormatter, turndownMarkup } from "../helper/converter";
 
 const ReviewCard = ({ style, data }) => {
-  const breakLineReplace = data.content.replaceAll("\r\n", "<br>&nbsp");
+  const breakLineReplace = data.content.replaceAll("\r\n", "&nbsp<br>");
   // console.log(breakLineReplace);
   const turdownReplace = turndownMarkup(breakLineReplace);
   // console.log(turdownReplace);

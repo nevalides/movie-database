@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import { useFetch } from "../hooks/useFetch";
 import ListCard from "../components/ListCard";
 import { useParams, useSearchParams } from "react-router-dom";
-import { MENU } from "../config";
+import { MENU } from "../config/config";
 import PeopleCastCard from "../components/PeopleCastCard";
 
 const FindList = () => {
