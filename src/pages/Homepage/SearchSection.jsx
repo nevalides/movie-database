@@ -2,7 +2,7 @@ import React, { forwardRef, useContext } from "react";
 import { SearchContext } from "../../store/search-context";
 import { useNavigate } from "react-router-dom";
 
-const SearchSection = ({ ref }) => {
+const SearchSection = () => {
   const { changeQuery } = useContext(SearchContext);
   return (
     <section className="h-[calc(100vh/2.5)] min-h-[300px] max-h-[360px] bg-main-greeting bg-cover bg-no-repeat text-white">
@@ -18,7 +18,6 @@ const SearchSection = ({ ref }) => {
             <div className="w-full mt-5">
               <form className="flex gap-2 rounded-[30px] bg-white" action="">
                 <input
-                  ref={ref}
                   type="text"
                   placeholder="Search for a movie, tv show, person....."
                   className="ml-6 grow text-black bg-transparent focus:outline-none"

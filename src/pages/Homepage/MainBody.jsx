@@ -69,7 +69,7 @@ const MainBody = () => {
 
   return (
     <main className="w-full mx-auto flex flex-col max-w-7xl items-center justify-center">
-      <SearchSection ref={inputSearch} />
+      <SearchSection />
       <Trending />
       <section
         id="recommendation"

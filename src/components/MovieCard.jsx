@@ -1,6 +1,6 @@
 import React from "react";
 import tempPic from "../assets/image_error_poster.png";
-import { BASE_IMG_URL } from "../config";
+import { BASE_IMG_URL } from "../config/config";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ data }) => {

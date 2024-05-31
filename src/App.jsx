@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import MainBody from "./pages/Homepage/MainBody";
 import Footer from "./components/Footer";
 import FindList from "./pages/FindList";
-import Detail from "./pages/Detail";
+import Detail from "./pages/Detail/Detail";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DbContext } from "./store/db-context";
 import Layout from "./layout/Layout";

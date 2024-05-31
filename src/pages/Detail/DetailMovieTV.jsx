@@ -1,7 +1,7 @@
 import React from "react";
-import { BASE_IMG_URL } from "../config/config";
-import errorPoster from "../assets/image_error_poster.png";
-import errorBackdrop from "../assets/image_error_backdrop.png";
+import { BASE_IMG_URL } from "../../config/config";
+import errorPoster from "../../assets/image_error_poster.png";
+import errorBackdrop from "../../assets/image_error_backdrop.png";
 import {
   IoIosArrowRoundForward,
   IoMdHeart,
@@ -9,9 +9,9 @@ import {
   IoMdOpen,
 } from "react-icons/io";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
-import PeopleCastCard from "../components/PeopleCastCard";
-import { formatterCurrency } from "../helper/formatter";
-import ReviewCard from "../components/ReviewCard";
+import PeopleCastCard from "../../components/PeopleCastCard";
+import { formatterCurrency } from "../../helper/formatter";
+import ReviewCard from "../../components/ReviewCard";
 
 const DetailMovieTV = ({ data }) => {
   let percentage;
