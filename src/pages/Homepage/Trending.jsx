@@ -1,33 +1,31 @@
-import { useCallback, useEffect, useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
 import MovieCard from "../../components/MovieCard";
 
-const Trending = () => {
-  const [trendingTime, setTrendingTime] = useState("day");
+const Trending = ({ data, changeTime, time, status }) => {
+  // const [trendingTime, setTrendingTime] = useState("day");
 
-  const { data, error, status, fetchData } = useFetch(
-    `/trending/all/${trendingTime}`,
-    {},
-    useCallback(
-      (data) => ({
-        data: data?.results,
-      }),
-      []
-    )
-  );
+  // const { data, error, status, fetchData } = useFetch(
+  //   `/trending/all/${trendingTime}`,
+  //   {},
+  //   useCallback(
+  //     (data) => ({
+  //       data: data?.results,
+  //     }),
+  //     []
+  //   )
+  // );
 
-  useEffect(() => {
-    fetchData();
-  }, [trendingTime]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData, trendingTime]);
 
-  const handleClick = (time) => {
-    setTrendingTime(time);
-  };
+  // const handleClick = (time) => {
+  //   setTrendingTime(time);
+  // };
 
   let todayClass = "selector rounded-[30px]";
   let weekClass = "selector rounded-[30px]";
 
-  if (trendingTime === "day") {
+  if (time === "day") {
     todayClass += " selected";
   } else {
     weekClass += " selected";
@@ -39,12 +37,12 @@ const Trending = () => {
         <div className="flex items-center justify-start px-10">
           <h2 className="text-xl font-semibold mr-5">Trending</h2>
           <div className="flex justify-start items-stretch border-[1px] border-solid border-tmdb-dark-blue rounded-[30px]">
-            <button className={todayClass} onClick={() => handleClick("day")}>
+            <button className={todayClass} onClick={() => changeTime("day")}>
               <h3 className="inline-flex items-center justify-center px-5 py-1 text-base font-semibold">
                 <p>Today</p>
               </h3>
             </button>
-            <button className={weekClass} onClick={() => handleClick("week")}>
+            <button className={weekClass} onClick={() => changeTime("week")}>
               <h3 className="inline-flex items-center justify-center px-5 py-1 text-base font-semibold">
                 <p>This week</p>
               </h3>

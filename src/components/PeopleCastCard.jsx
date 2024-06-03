@@ -2,7 +2,7 @@ import { BASE_IMG_URL } from "../config/config";
 import tempPic from "../assets/image_error_poster.png";
 import { Link } from "react-router-dom";
 
-const PeopleCastCard = ({ data }) => {
+const PeopleCastCard = ({ data, noCharacter }) => {
   const mediaType = 'person'
 
   return (
@@ -20,7 +20,7 @@ const PeopleCastCard = ({ data }) => {
       </div>
       <div className="p-2">
         <h2 className="font-bold">{data.name}</h2>
-        <p>{data.character}</p>
+        {!noCharacter && <p>{data.character}</p>}
       </div>
     </Link>
   );

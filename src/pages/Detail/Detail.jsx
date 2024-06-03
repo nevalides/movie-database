@@ -7,7 +7,7 @@ import DetailPeople from "./DetailPeople";
 const Detail = () => {
   const { mediaType, id } = useParams();
   const additionalResponse =
-    mediaType === "person" ? "combined_credits" : "credits,reviews";
+    mediaType === "person" ? "combined_credits" : "credits,reviews,recommendations";
   const { data, error, status, fetchData } = useFetch(
     `/${mediaType}/${id}?append_to_response=${additionalResponse}`,
     {},
@@ -21,7 +21,7 @@ const Detail = () => {
 
   useEffect(() => {
     fetchData();
-  }, [mediaType, id]);
+  }, [mediaType, id, fetchData]);
 
   console.log(data);
 
@@ -32,7 +32,7 @@ const Detail = () => {
   // }
 
   if (status === "resolved" && mediaType !== "person") {
-    return <DetailMovieTV data={data} />;
+    return <DetailMovieTV data={data} media={mediaType} />;
   } else if (status === "resolved" && mediaType === "person") {
     return <DetailPeople data={data} />;
   }

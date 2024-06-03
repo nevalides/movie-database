@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import service from "../service/index";
 import { ACC_LANG, API_KEY } from "../config/config";
 
@@ -38,15 +38,16 @@ function reducer(state, action) {
   }
 }
 
-export const useFetch = (url, queryParams, mapData) => {
+export const useFetch = (url, queryParams = {}, mapData) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [params, setParams] = useState({ ...queryParams });
 
   const fetchData = useCallback(() => {
     dispatch({ type: "GET_REQUEST" });
     service
       .get(url, {
         params: {
-          ...queryParams,
+          ...params,
           language: ACC_LANG,
           api_key: API_KEY,
         },
@@ -57,7 +58,11 @@ export const useFetch = (url, queryParams, mapData) => {
       .catch((e) => {
         dispatch({ type: "GET_REQUEST_FAILURE", payload: e });
       });
-  }, [url, queryParams, mapData]);
+  }, [url, params, mapData]);
 
-  return { ...state, params: queryParams, mapData, fetchData };
+  useEffect(() => {
+    fetchData();
+  }, [params]);
+
+  return { ...state, params, mapData, setParams, fetchData };
 };

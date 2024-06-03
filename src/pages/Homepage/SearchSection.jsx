@@ -1,10 +1,21 @@
-import { useContext } from "react";
-import { SearchContext } from "../../store/search-context";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "../../hooks/useQuery";
+import { useRef } from "react";
 
 const SearchSection = () => {
-  const { changeQuery } = useContext(SearchContext);
-  const navigate = useNavigate()
+  const { changeQuery } = useQuery();
+  const inputSearch = useRef();
+  const navigate = useNavigate();
+
+  function handleSearch(value) {
+    changeQuery({ query: value });
+    navigate(`/search?query=${value}`)
+  }
+
+  function handleInput(e) {
+    if (e.key === 'Enter') handleSearch(inputSearch.current.value)
+  }
+
   return (
     <section className="h-[calc(100vh/2.5)] min-h-[300px] max-h-[360px] bg-main-greeting bg-cover bg-no-repeat text-white">
       <div className="h-full flex content-center items-center justify-center flex-wrap">
@@ -17,20 +28,21 @@ const SearchSection = () => {
               </h3>
             </div>
             <div className="w-full mt-5">
-              <form className="flex gap-2 rounded-[30px] bg-white" action="">
+              <div className="flex gap-2 rounded-[30px] bg-white">
                 <input
                   type="text"
+                  ref={inputSearch}
                   placeholder="Search for a movie, tv show, person....."
                   className="ml-6 grow text-black bg-transparent focus:outline-none"
-                  onChange={(e) => changeQuery(e.target.value)}
+                  onKeyDown={handleInput}
                 />
                 <button
                   className="px-6 py-2.5 font-bold rounded-[30px] bg-gradient-to-r from-tertiary-color to-secondary-color"
-                  onClick={() => navigate("/search")}
+                  onClick={() => handleSearch(inputSearch.current.value)}
                 >
                   Search
                 </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>

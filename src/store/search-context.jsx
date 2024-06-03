@@ -1,16 +1,23 @@
-import React, { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
-export const SearchContext = createContext({
-  searchQuery: "",
-  changeQuery: () => {},
+const SearchContext = createContext({
+  searchQuery: {
+    query: null
+  },
+  changeQuery: () => { },
 });
 
-export default function SearchContextProvider({ children }) {
-  const [searchQuery, setSearchQuery] = useState("");
+const SearchContextProvider = ({ children }) => {
+  const [searchQuery, setSearchQuery] = useState({
+    query: null
+  });
 
-  const handleChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  const handleChange = useCallback((query) => {
+    setSearchQuery((prevQuery) => ({
+      ...prevQuery,
+      ...query
+    }));
+  }, []);
 
   const ctxValue = {
     searchQuery: searchQuery,
@@ -21,3 +28,5 @@ export default function SearchContextProvider({ children }) {
     <SearchContext.Provider value={ctxValue}>{children}</SearchContext.Provider>
   );
 }
+
+export { SearchContext, SearchContextProvider }

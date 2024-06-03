@@ -7,7 +7,7 @@
 import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
 // import { DbContext } from "./store/db-context";
 import Layout from "./layout/Layout";
-import SearchContextProvider from "./store/search-context";
+import { SearchContextProvider } from "./store/search-context";
 import routes from "./config/route";
 import { Suspense } from "react";
 

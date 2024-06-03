@@ -2,7 +2,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import SearchSection from "./SearchSection";
@@ -14,15 +13,14 @@ import Trending from "./Trending";
 
 const MainBody = () => {
   // const { isLogin, favList } = useContext(DbContext);
-  const inputSearch = useRef();
   // const navigate = useNavigate();
-  // const [trendingTime, setTrendingTime] = useState("day");
+  const [trendingTime, setTrendingTime] = useState("day");
 
   const isLogin = false;
   const favList = [];
 
   const { data, error, status, fetchData } = useFetch(
-    `/trending/all/day`,
+    `/trending/all/${trendingTime}`,
     {},
     useCallback(
       (data) => ({
@@ -34,7 +32,11 @@ const MainBody = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData, trendingTime]);
+
+  const handleClick = (time) => {
+    setTrendingTime(time);
+  };
 
   // const handleClick = () => {
   //   if (trendingTime === "day") {
@@ -63,14 +65,14 @@ const MainBody = () => {
     trenData = [data[12], data[4], data[13], data[7]];
   }
 
-  console.log(status);
-  console.log(data);
-  console.log(trenData);
+  // console.log(status);
+  // console.log(data);
+  // console.log(trenData);
 
   return (
     <main className="w-full mx-auto flex flex-col max-w-7xl items-center justify-center">
       <SearchSection />
-      <Trending />
+      <Trending data={data} changeTime={handleClick} time={trendingTime} status={status} />
       <section
         id="recommendation"
         className="w-full flex items-center justify-center gap-20 px-20 py-10 bg-gradient-to-r from-vibrant-light-blue to-tmdb-dark-blue text-white"

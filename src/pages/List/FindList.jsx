@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import Button from "../../components/Button";
 import { useFetch } from "../../hooks/useFetch";
@@ -6,13 +6,15 @@ import ListCard from "../../components/ListCard";
 import { useParams, useSearchParams } from "react-router-dom";
 import { MENU } from "../../config/config";
 import PeopleCastCard from "../../components/PeopleCastCard";
+import { useQuery } from "../../hooks/useQuery";
 
 const FindList = ({ title }) => {
   document.title = title
   const { mediaType } = useParams();
   // const [searchQuery, setSearchQuery] = useSearchParams();
   // searchQuery.get("query");
-  const [titlePage, setTitlePage] = useState("");
+  // const [titlePage, setTitlePage] = useState("");
+  const { searchQuery } = useQuery();
   const [menuSelect, setMenuSelect] = useState({
     mediaType,
     category: MENU[mediaType][0].path,
@@ -33,23 +35,23 @@ const FindList = ({ title }) => {
 
   useEffect(() => {
     fetchData();
-  }, [menuSelect]);
+  }, [fetchData, menuSelect]);
+
+  let titlePage;
+
+  if (mediaType === "movie") {
+    titlePage = `Find Movie${searchQuery.query && searchQuery.query.trim() !== '' ? `: ${queryParams.query}` : ''}`;
+  } else if (mediaType === "tv") {
+    titlePage = `Find TV Shows${searchQuery.query && searchQuery.query.trim() !== '' ? `: ${queryParams.query}` : ''}`;
+  } else if (mediaType === "person") {
+    titlePage = `Find People${searchQuery.query && searchQuery.query.trim() !== '' ? `: ${queryParams.query}` : ''}`;
+  }
 
   useEffect(() => {
     setMenuSelect({
       mediaType,
       category: MENU[mediaType][0].path,
     });
-
-    if (mediaType === "movie") {
-      setTitlePage("Find Movie");
-    } else if (mediaType === "tv") {
-      setTitlePage("Find TV Shows");
-    } else if (mediaType === "person") {
-      setTitlePage("Find People");
-    } else {
-      setTitlePage(`Find: ${query}`);
-    }
   }, [mediaType]);
 
   const handleMenuSelect = (value) => {

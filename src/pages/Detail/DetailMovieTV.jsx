@@ -8,11 +8,12 @@ import {
   IoMdOpen,
 } from "react-icons/io";
 import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
+import ListCard from "../../components/ListCard";
 import PeopleCastCard from "../../components/PeopleCastCard";
 import { formatterCurrency } from "../../helper/formatter";
 import ReviewCard from "../../components/ReviewCard";
 
-const DetailMovieTV = ({ data }) => {
+const DetailMovieTV = ({ data, media }) => {
   let percentage;
   let dateArray;
   let colorClass;
@@ -205,7 +206,7 @@ const DetailMovieTV = ({ data }) => {
                 </form>
               </div>
               <div className="flex flex-wrap justify-center items-start content-start overflow-hidden border border-solid border-black">
-                <div className="flex flex-col max-h-60 items-start justify-start gap-5 p-4 overflow-x-hidden overflow-y-scroll">
+                <div className="flex flex-col max-h-80 items-start justify-start gap-5 p-4 overflow-x-hidden overflow-y-scroll">
                   {data?.reviews?.results?.length !== 0 &&
                     data?.reviews?.results?.map((review, index) => {
                       if (index === 0) {
@@ -227,6 +228,14 @@ const DetailMovieTV = ({ data }) => {
                   )}
                 </div>
               </div>
+            </section>
+            <section className="flex flex-col w-full pb-8 overflow-hidden">
+              <h3 className="font-semibold text-2xl mb-5">Recommendations</h3>
+              <ol className="flex items-start justify-start px-2 pb-4 gap-5 overflow-x-scroll overflow-y-hidden">
+                {data?.recommendations?.results.map((recommendation, index) =>
+                  <ListCard key={index} data={recommendation} media={media} noDate />
+                )}
+              </ol>
             </section>
           </div>
           <div className="max-w-[300px] min-w-[260px] w-[260px] flex flex-wrap">
@@ -259,11 +268,6 @@ const DetailMovieTV = ({ data }) => {
           </div>
         </div>
       </section>
-      {/* {status === "resolved" && (
-        <>
-          
-        </>
-      )} */}
     </main>
   );
 };
