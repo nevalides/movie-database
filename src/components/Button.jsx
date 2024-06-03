@@ -1,5 +1,3 @@
-import React from "react";
-
 const Button = ({ isActive, onClick, children }) => {
   return (
     <button

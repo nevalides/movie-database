@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/logo-primary-full.svg";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +5,7 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const handleClick = (media) => {
-    navigate(`${media}`);
+    navigate(`/${media}`);
   };
 
   return (

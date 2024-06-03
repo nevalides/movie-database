@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import MovieCard from "../../components/MovieCard";
 

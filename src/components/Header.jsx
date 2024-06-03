@@ -1,7 +1,5 @@
-import React from "react";
 import logo from "../assets/logo-alt-short.svg";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   // const isLogin = localStorage.getItem("isLogin");
@@ -13,7 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleClick = (media) => {
-    navigate(`${media}`);
+    navigate(`/${media}`);
   };
 
   return (

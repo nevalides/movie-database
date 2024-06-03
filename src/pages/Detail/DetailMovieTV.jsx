@@ -1,4 +1,3 @@
-import React from "react";
 import { BASE_IMG_URL } from "../../config/config";
 import errorPoster from "../../assets/image_error_poster.png";
 import errorBackdrop from "../../assets/image_error_backdrop.png";
@@ -20,11 +19,11 @@ const DetailMovieTV = ({ data }) => {
   let runtimeHours;
   let runtimeMinutes;
 
-  const date = data.release_date ?? data.first_air_date;
-  dateArray = date.split("-");
+  const date = data?.release_date ?? data?.first_air_date;
+  dateArray = date?.split("-");
   runtimeHours = Math.floor(data.runtime / 60);
-  runtimeMinutes = data.runtime - runtimeHours * 60;
-  percentage = Math.round(data.vote_average * 10);
+  runtimeMinutes = data?.runtime - runtimeHours * 60;
+  percentage = Math.round(data?.vote_average * 10);
   if (percentage >= 75) {
     colorClass = "green";
   } else if (percentage >= 50 && percentage < 75) {
@@ -62,8 +61,8 @@ const DetailMovieTV = ({ data }) => {
                 <div className="h-[450px] w-[300px] min-w-[300px] rounded-lg overflow-hidden">
                   <img
                     src={
-                      data.poster_path
-                        ? `${BASE_IMG_URL}${data.poster_path}`
+                      data?.poster_path
+                        ? `${BASE_IMG_URL}${data?.poster_path}`
                         : errorPoster
                     }
                     alt=""
@@ -72,18 +71,18 @@ const DetailMovieTV = ({ data }) => {
                 <div className="flex">
                   <section className="flex flex-wrap items-start content-center pl-10">
                     <div className="w-full flex flex-col mb-6 gap-5">
-                      <h2 className="text-h2">{data.title ?? data.name}</h2>
+                      <h2 className="text-h2">{data?.title ?? data?.name}</h2>
                       <div className="flex gap-2">
                         {/* <span className="inline-flex whitespace-nowrap items-center px-1 pt-[0.06rem] pb-[0.15rem] border border-color-certification-rated text-color-certification-rated rounded-sm mr-[7px]"></span> */}
-                        {data.title && (
+                        {data?.title && (
                           <span className="text-gray-400">
                             {`${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`}
                           </span>
                         )}
-                        {data.title && (
+                        {data?.title && (
                           <span className="text-white border border-tertiary-color px-2">{`${runtimeHours}h ${runtimeMinutes}m`}</span>
                         )}
-                        {data.genres.map((genre) => (
+                        {data?.genres?.map((genre) => (
                           <span
                             key={genre.id}
                             className="text-white bg-tertiary-color px-2"
@@ -138,13 +137,13 @@ const DetailMovieTV = ({ data }) => {
                     </div>
                     <div className="w-full">
                       <h3 className="text-lg italic font-normal">
-                        "{data.tagline}"
+                        {`"${data?.tagline}"`}
                       </h3>
                       <h3 className="mt-2.5 mb-2 text-xl font-semibold">
                         Overview
                       </h3>
                       <div>
-                        <p className="text-base font-normal">{data.overview}</p>
+                        <p className="text-base font-normal">{data?.overview}</p>
                       </div>
                     </div>
                   </section>
@@ -155,7 +154,7 @@ const DetailMovieTV = ({ data }) => {
           <img
             className="w-full h-full object-cover"
             src={
-              data.backdrop_path
+              data?.backdrop_path
                 ? `${BASE_IMG_URL}${data.backdrop_path}`
                 : errorBackdrop
             }
@@ -166,31 +165,29 @@ const DetailMovieTV = ({ data }) => {
       <section id="other-detail" className="w-full max-w-7xl mb-0">
         <div className="px-10 py-[30px] flex items-start gap-5">
           <div className="w-full max-w-[920px] flex flex-wrap">
-            <section className="w-full pb-8">
+            <section className="flex flex-col w-full pb-8 overflow-hidden">
               <h3 className="font-semibold text-2xl mb-5">Top Billed Cast</h3>
-              <div className="flex flex-wrap justify-center items-start content-start overflow-hidden">
-                <div className="flex items-start justify-start pb-4 gap-5 overflow-x-scroll overflow-y-hidden">
-                  {data.credits.cast.map((peopleCast, index) => {
-                    if (index < 8) {
-                      return (
-                        <PeopleCastCard key={peopleCast.id} data={peopleCast} />
-                      );
-                    } else if (index === 8) {
-                      return (
-                        <div
-                          className="w-[150px] min-w-[150px] h-72 flex items-center justify-center gap-1"
-                          key={index}
-                        >
-                          <p className="inline-block text-lg font-semibold">
-                            View more
-                          </p>
-                          <IoIosArrowRoundForward />
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              </div>
+              <ol className="flex items-start justify-start px-2 pb-4 gap-5 overflow-x-scroll overflow-y-hidden">
+                {data?.credits?.cast.map((peopleCast, index) => {
+                  if (index < 8) {
+                    return (
+                      <PeopleCastCard key={peopleCast.id} data={peopleCast} />
+                    );
+                  } else if (index === 8) {
+                    return (
+                      <div
+                        className="w-[150px] min-w-[150px] h-full flex items-center justify-center gap-1"
+                        key={index}
+                      >
+                        <p className="text-[16px] font-semibold">
+                          View more
+                        </p>
+                        <IoIosArrowRoundForward className="h-6 w-6" />
+                      </div>
+                    );
+                  }
+                })}
+              </ol>
             </section>
             <section className="w-full pb-8">
               <h3 className="font-semibold text-2xl mb-5">Reviews</h3>
@@ -209,8 +206,8 @@ const DetailMovieTV = ({ data }) => {
               </div>
               <div className="flex flex-wrap justify-center items-start content-start overflow-hidden border border-solid border-black">
                 <div className="flex flex-col max-h-60 items-start justify-start gap-5 p-4 overflow-x-hidden overflow-y-scroll">
-                  {data.reviews.results.length !== 0 &&
-                    data.reviews.results.map((review, index) => {
+                  {data?.reviews?.results?.length !== 0 &&
+                    data?.reviews?.results?.map((review, index) => {
                       if (index === 0) {
                         return <ReviewCard key={review.id} data={review} />;
                       } else {
@@ -223,7 +220,7 @@ const DetailMovieTV = ({ data }) => {
                         );
                       }
                     })}
-                  {data.reviews.results.length === 0 && (
+                  {data?.reviews?.results?.length === 0 && (
                     <p className="my-8 text-center text-lg">
                       There are no reviews here.
                     </p>
@@ -236,26 +233,26 @@ const DetailMovieTV = ({ data }) => {
             <section className="w-full flex flex-wrap">
               <p className="w-full whitespace-normal text-base mb-5">
                 <strong className="block font-semibold">Original Title</strong>
-                {data.original_title ?? data.original_name}
+                {data?.original_title ?? data?.original_name}
               </p>
               <p className="w-full whitespace-normal text-base mb-5">
                 <strong className="block font-semibold">Status</strong>
-                {data.status}
+                {data?.status}
               </p>
               <p className="w-full whitespace-normal text-base mb-5">
                 <strong className="block font-semibold">
                   Original Language
                 </strong>
-                {data.original_language}
+                {data?.original_language}
               </p>
               <p className="w-full whitespace-normal text-base mb-5">
                 <strong className="block font-semibold">Budget</strong>
-                {data.budget > 0 ? formatterCurrency.format(data.budget) : "-"}
+                {data?.budget > 0 ? formatterCurrency.format(data?.budget) : "-"}
               </p>
               <p className="w-full whitespace-normal text-base mb-5">
                 <strong className="block font-semibold">Revenue</strong>
-                {data.revenue > 0
-                  ? formatterCurrency.format(data.revenue)
+                {data?.revenue > 0
+                  ? formatterCurrency.format(data?.revenue)
                   : "-"}
               </p>
             </section>

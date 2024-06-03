@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
-import Button from "../components/Button";
-import { useFetch } from "../hooks/useFetch";
-import ListCard from "../components/ListCard";
+import Button from "../../components/Button";
+import { useFetch } from "../../hooks/useFetch";
+import ListCard from "../../components/ListCard";
 import { useParams, useSearchParams } from "react-router-dom";
-import { MENU } from "../config/config";
-import PeopleCastCard from "../components/PeopleCastCard";
+import { MENU } from "../../config/config";
+import PeopleCastCard from "../../components/PeopleCastCard";
 
-const FindList = () => {
+const FindList = ({ title }) => {
+  document.title = title
   const { mediaType } = useParams();
   // const [searchQuery, setSearchQuery] = useSearchParams();
   // searchQuery.get("query");
@@ -67,8 +68,9 @@ const FindList = () => {
         <h2 className="text-4xl font-bold">{titlePage}</h2>
         <div className="w-full flex items-center justify-between">
           <nav className="flex items-center justify-center gap-2">
-            {buttonList.map((button) => (
+            {buttonList.map((button, index) => (
               <Button
+                key={index}
                 mediaType={mediaType}
                 onClick={() => handleMenuSelect(button.path)}
               >
@@ -99,7 +101,7 @@ const FindList = () => {
       >
         {status === "resolved" &&
           mediaType !== "person" &&
-          data.map((movie) => <ListCard key={movie.id} data={movie} />)}
+          data.map((movie) => <ListCard media={menuSelect.mediaType} key={movie.id} data={movie} />)}
         {status === "resolved" &&
           mediaType === "person" &&
           data.map((people) => (

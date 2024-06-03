@@ -2,9 +2,8 @@ import TurndownService from "turndown";
 
 export function turndownMarkup(htmlString) {
   const turndownService = new TurndownService();
-  // turndownService.keep("br");
 
-  return turndownService.turndown(htmlString);
+  return turndownService?.turndown(htmlString);
 }
 
 export const dateFormatter = (date) => {
